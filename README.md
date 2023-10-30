@@ -1,5 +1,5 @@
 # Brainfuck-Compiler
-Brainfuck is an [esoteric programming language](https://en.wikipedia.org/wiki/Esoteric_programming_language "wiki") created in 1993 by Urban Müller.
+**Brainfuck** is an [esoteric programming language](https://en.wikipedia.org/wiki/Esoteric_programming_language "wiki") created in 1993 by Urban Müller.
 
 Notable for its extreme minimalism, the language consists of only eight simple commands, a [data pointer](https://en.wikipedia.org/wiki/Data_pointer "wiki") and an [instruction pointer](https://en.wikipedia.org/wiki/Instruction_pointer "wiki"). While it is fully [Turing complete](https://en.wikipedia.org/wiki/Turing_completeness "wiki"), it is not intended for practical use, but to challenge and amuse [programmers](https://en.wikipedia.org/wiki/Programmers "wiki"). Brainfuck requires one to break commands into microscopic steps.
 
@@ -10,7 +10,13 @@ The language's name is a reference to the slang term [brainfuck](https://en.wikt
 g++ -o brainfuck main.cpp brainfuck.cpp
 ```
 
-## Usage
+## Command-line
+
+### Syntax
+```bash
+./brainfuck <filename>
+```
+### Usage
 ```bash
 ./brainfuck example/hello_world.bf
 ```
@@ -21,7 +27,7 @@ The language consists of eight [commands](https://en.wikipedia.org/wiki/Command_
 The brainfuck language uses a simple machine model consisting of the program and instruction pointer, as well as a one-dimensional array of at least 30,000 [byte](https://en.wikipedia.org/wiki/Byte "wiki") cells initialized to zero; a movable [data pointer](https://en.wikipedia.org/wiki/Pointer_(computer_programming) "wiki") (initialized to point to the leftmost byte of the array); and two streams of bytes for input and output (most often connected to a keyboard and a monitor respectively, and using the [ASCII](https://en.wikipedia.org/wiki/ASCII "wiki") character encoding).
 
 The eight language commands each consist of a single character:
-|Character| Meaning |
+|Character| <center>Meaning</center> |
 |  :---:  |  :---   |
 | `>` | Increment the data pointer by one (to point to the next cell to the right). |
 | `<` | Decrement the data pointer by one (to point to the next cell to the left). |
