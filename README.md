@@ -5,21 +5,19 @@ Notable for its extreme minimalism, the language consists of only eight simple c
 
 The language's name is a reference to the slang term [brainfuck](https://en.wiktionary.org/wiki/brainfuck "wiki"), which refers to things so complicated or unusual that they exceed the limits of one's understanding, as it was not meant or made for designing actual software but to challenge the boundaries of [computer programming](https://en.wikipedia.org/wiki/Computer_programming "wiki").
 
-## Build
+## Build:
 ```bash
-g++ -o brainfuck main.cpp brainfuck.cpp
+g++ -Wno-unused-result -Ofast -march=native -frename-registers -funroll-loops -o brainfuck main.cpp brainfuck.cpp
 ```
 
-## Command-line
+## Commandline:
 
 ### Syntax
-```bash
-./brainfuck <filename>
-```
+**Linux:** `./brainfuck <filename>`\
+**Windows:** `brainfuck.exe <filename>`
 ### Usage
-```bash
-./brainfuck example/hello_world.bf
-```
+**Linux:** `./brainfuck example/hello_world.bf`\
+**Windows:** `brainfuck.exe example/hello_world.bf`
 
 ## Language Design
 The language consists of eight [commands](https://en.wikipedia.org/wiki/Command_(computing) "wiki"). A brainfuck program is a sequence of these commands, possibly interspersed with other characters (which are ignored). The commands are executed sequentially, with some exceptions: an [instruction pointer](https://en.wikipedia.org/wiki/Program_Counter "wiki") begins at the first command, and each command it points to is executed, after which it normally moves forward to the next command. The program terminates when the instruction pointer moves past the last command.

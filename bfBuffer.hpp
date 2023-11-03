@@ -27,13 +27,6 @@ public:
         iter = &forward[0];
     }
 
-    // ~bf_buffer()
-    // {
-    //     iter = nullptr;
-    //     forward.~vector();
-    //     backward.~vector();
-    // }
-
     _Tp& operator[](int) const = delete;
 
     inline void setData(const _Tp& data)
