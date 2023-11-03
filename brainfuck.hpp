@@ -1,11 +1,12 @@
 #pragma once
 
-#include <vector>
+#include "bfBuffer.hpp"
 
 class Brainfuck
 {
     unsigned char* pByte = nullptr;
-    std::vector<unsigned char> data_mem, instr_mem;
+    bf_buffer<unsigned char> data_mem;
+    std::vector<unsigned char> instr_mem;
 
 public:
 

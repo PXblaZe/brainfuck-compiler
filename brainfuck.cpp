@@ -23,7 +23,7 @@ Brainfuck::Brainfuck(const char *filename)
 
     fclose(pfile);
  
-    if (instr_mem.size() > 0) data_mem.push_back(0), pByte = static_cast<unsigned char*>(malloc(sizeof(unsigned char)));
+    if (instr_mem.size() > 0) pByte = static_cast<unsigned char*>(malloc(sizeof(unsigned char)));
     
 }
 
@@ -34,59 +34,68 @@ Brainfuck::~Brainfuck()
 
 int Brainfuck::execute()
 {
-    std::vector<unsigned char>::iterator pDM = data_mem.begin();
     std::stack<std::vector<unsigned char>::const_iterator> loops;
     for (std::vector<unsigned char>::const_iterator pIM = instr_mem.cbegin(); pIM != instr_mem.cend(); pIM++)
     {
-        if (*pIM == '>'){
-            if (pDM+1 == data_mem.end())
-            { 
-                data_mem.push_back('\0'), pDM = data_mem.end()-1;
-                continue;
-            }
-            pDM++;
-        }
-        else if (*pIM == '<') {
-            if (pDM == data_mem.begin())
-            {
-                fprintf(stderr, "error: data pointer is at the beginning of the array.\n");
-                return -1;
-            }
-            pDM--;
-        }
-        else if (*pIM == '+') (*pDM)++;
-        else if (*pIM == '-') (*pDM)--;
-        else if (*pIM == '.') on_dot(*pDM);
-        else if (*pIM == ',') on_comma(pByte), *pDM = *pByte;
-        else if (*pIM == '[') {
-            if (*pDM) 
-            {
-                loops.push(pIM);
-                continue;
-            }
-            size_t bn = 1;
-            while ( bn && pIM != instr_mem.cend())
-            {
-                pIM++;
-                if (*pIM == ']') bn--;
-                else if (*pIM == '[') bn++;
-            }
-            if (pIM == instr_mem.cend()) 
-            {
-                fprintf(stderr, "error: UNBALANCED `[` BRACKETS.\n");
-                return -1;
-            }
-        }
-        else if (*pIM == ']') {
-            if (loops.empty())
-            {
-                fprintf(stderr, "error: UNBALANCED `]` BRACKETS.\n");
-                return -1;
-            }
-            if (*pDM) pIM = loops.top();
-            else loops.pop();
-        }
+        switch (*pIM)
+        {
+            case '>':
+                data_mem++;
+                break;
 
+            case '<':
+                data_mem--;
+                break;
+
+            case '+':
+                (*data_mem)++;
+                break;
+            
+            case '-':
+                (*data_mem)--;
+                break;
+
+            case '.':
+                on_dot(data_mem.getData());
+                break;
+
+            case ',':
+                on_comma(pByte), data_mem.setData(*pByte);
+                break;
+
+            case '[':
+            {
+                if (*data_mem) 
+                {
+                    loops.push(pIM);
+                    continue;
+                }
+                size_t bn = 1;
+                while ( bn && pIM != instr_mem.cend())
+                {
+                    pIM++;
+                    if (*pIM == ']') bn--;
+                    else if (*pIM == '[') bn++;
+                }
+                if (pIM == instr_mem.cend()) 
+                {
+                    fprintf(stderr, "error: UNBALANCED `[` BRACKETS.\n");
+                    return -1;
+                }
+            } break;
+
+            case ']':
+            {
+                if (loops.empty())
+                {
+                    fprintf(stderr, "error: UNBALANCED `]` BRACKETS.\n");
+                    return -1;
+                }
+                if (*data_mem) pIM = loops.top();
+                else loops.pop();
+            } break;
+
+        }
     }
     return 0;
 }
