@@ -7,7 +7,7 @@ The language's name is a reference to the slang term [brainfuck](https://en.wikt
 
 ## Build:
 ```bash
-g++ -Wno-unused-result -Ofast -march=native -frename-registers -funroll-loops -o brainfuck main.cpp brainfuck.cpp
+g++ -Wno-unused-result -Ofast -march=native -frename-registers -o brainfuck main.cpp brainfuck.cpp
 ```
 
 ## Commandline:
